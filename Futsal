@@ -1,0 +1,96 @@
+package Tugas10Praktikum;
+
+import java.util.*;
+
+class Pemain {
+    int tinggiBadan;
+    int beratBadan;
+
+    public Pemain(int tinggiBadan, int beratBadan) {
+        this.tinggiBadan = tinggiBadan;
+        this.beratBadan = beratBadan;
+    }
+
+    @Override
+    public String toString() {
+        return "Tinggi: " + tinggiBadan + " cm, Berat: " + beratBadan + " kg";
+    }
+}
+
+public class Futsal {
+    public static void main(String[] args) {
+        // Data Tim A
+        List<Pemain> timA = Arrays.asList(
+            new Pemain(168, 50), new Pemain(170, 60), new Pemain(165, 56), new Pemain(168, 55),
+            new Pemain(172, 60), new Pemain(170, 70), new Pemain(169, 66), new Pemain(165, 56),
+            new Pemain(171, 72), new Pemain(166, 56)
+        );
+
+        // Data Tim B
+        List<Pemain> timB = Arrays.asList(
+            new Pemain(170, 66), new Pemain(167, 60), new Pemain(165, 59), new Pemain(166, 58),
+            new Pemain(168, 58), new Pemain(175, 71), new Pemain(169, 68), new Pemain(171, 68),
+            new Pemain(168, 65), new Pemain(169, 60)
+        );
+
+        // Gabungkan data tim A dan tim B
+        List<Pemain> semuaPemain = new ArrayList<>(timA);
+        semuaPemain.addAll(timB);
+
+        // A. Mengurutkan berdasarkan Tinggi Badan 
+        System.out.println("~~ Mengurutkan Tinggi Badan ~~");
+
+        // Ascending
+        System.out.println("Tinggi Tim A Ascending:");
+        timA.stream().sorted(Comparator.comparingInt(p -> p.tinggiBadan)).forEach(p -> System.out.println(p));
+        System.out.println("Tinggi Tim B Ascending:");
+        timB.stream().sorted(Comparator.comparingInt(p -> p.tinggiBadan)).forEach(p -> System.out.println(p));
+
+        // Descending
+        System.out.println("\nTinggi Tim A Descending:");
+        timA.stream().sorted((p1, p2) -> Integer.compare(p2.tinggiBadan, p1.tinggiBadan)).forEach(p -> System.out.println(p));
+        System.out.println("Tinggi Tim B Descending:");
+        timB.stream().sorted((p1, p2) -> Integer.compare(p2.tinggiBadan, p1.tinggiBadan)).forEach(p -> System.out.println(p));
+
+        // B. Mengurutkan berdasarkan Berat Badan 
+        System.out.println("\n~~ Mengurutkan Berat Badan ~~");
+
+        // Ascending
+        System.out.println("Berat Tim A Ascending:");
+        timA.stream().sorted(Comparator.comparingInt(p -> p.beratBadan)).forEach(p -> System.out.println(p));
+        System.out.println("Berat Tim B Ascending:");
+        timB.stream().sorted(Comparator.comparingInt(p -> p.beratBadan)).forEach(p -> System.out.println(p));
+
+        // Descending
+        System.out.println("\nBerat Tim A Descending:");
+        timA.stream().sorted((p1, p2) -> Integer.compare(p2.beratBadan, p1.beratBadan)).forEach(p -> System.out.println(p));
+        System.out.println("Berat Tim B Descending:");
+        timB.stream().sorted((p1, p2) -> Integer.compare(p2.beratBadan, p1.beratBadan)).forEach(p -> System.out.println(p));
+
+        // C. Mencari Max dan Min Tim A dan Tim B 
+        System.out.println("\n~~ Mencari Max dan Min Tim A ~~");
+        cariTinggiDanBeratExtrema(timA);
+
+        System.out.println("\n~~ Mencari Max dan Min Tim B ~~");
+        cariTinggiDanBeratExtrema(timB);
+
+        // D. Menyalin seluruh anggota Tim B ke Tim C 
+        List<Pemain> timC = new ArrayList<>(timB);
+        System.out.println("\nData Tim C hasil salinan dari Tim B:");
+        for (int i = 0; i < timC.size(); i++) {
+            System.out.println("Pemain " + (i + 1) + " - Tinggi: " + timC.get(i).tinggiBadan + " cm, Berat: " + timC.get(i).beratBadan + " kg");
+        }
+    }
+
+    // Fungsi untuk mencari max dan min dari Tim A atau Tim B
+    public static void cariTinggiDanBeratExtrema(List<Pemain> tim) {
+        Pemain maxTinggi = Collections.max(tim, Comparator.comparingInt(p -> p.tinggiBadan));
+        Pemain minTinggi = Collections.min(tim, Comparator.comparingInt(p -> p.tinggiBadan));
+
+        Pemain maxBerat = Collections.max(tim, Comparator.comparingInt(p -> p.beratBadan));
+        Pemain minBerat = Collections.min(tim, Comparator.comparingInt(p -> p.beratBadan));
+
+        System.out.println("Tinggi Maks: " + maxTinggi.tinggiBadan + " cm, Tinggi Min: " + minTinggi.tinggiBadan + " cm");
+        System.out.println("Berat Maks: " + maxBerat.beratBadan + " kg, Berat Min: " + minBerat.beratBadan + " kg");
+    }
+}
