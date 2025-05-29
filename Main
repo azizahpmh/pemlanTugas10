@@ -1,0 +1,53 @@
+package Tugas10Praktikum;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        // Data Tim A (tinggi dan berat badan)
+        List<Integer> tinggiA = new ArrayList<>(Arrays.asList(168, 170, 165, 168, 172, 170, 169, 165, 171, 166));
+        List<Integer> beratA = new ArrayList<>(Arrays.asList(50, 60, 56, 55, 60, 70, 66, 56, 72, 56));
+
+        // Data Tim B (tinggi dan berat badan)
+        List<Integer> tinggiB = new ArrayList<>(Arrays.asList(170, 167, 165, 166, 168, 175, 169, 171, 168, 169));
+        List<Integer> beratB = new ArrayList<>(Arrays.asList(66, 60, 59, 58, 58, 71, 68, 68, 65, 60));
+
+        // b) Mencari jumlah pemain Tim B dengan tinggi badan 168 cm dan 160 cm
+        Collections.sort(tinggiB);
+        System.out.println("Jumlah pemain tinggi 168 di Tim B: " + Collections.frequency(tinggiB, 168));
+        System.out.println("Jumlah pemain tinggi 160 di Tim B: " + Collections.frequency(tinggiB, 160));
+        System.out.println();
+
+        // c) Mencari jumlah pemain Tim A dengan berat badan 56 kg dan 53 kg
+        Collections.sort(beratA);
+        System.out.println("Jumlah pemain berat 56 di Tim A: " + Collections.frequency(beratA, 56));
+        System.out.println("Jumlah pemain berat 53 di Tim A: " + Collections.frequency(beratA, 53));
+        System.out.println();
+
+        // d) Mengecek apakah ada data yang sama antara tim A dan tim B
+        boolean samaTinggi = !Collections.disjoint(tinggiA, tinggiB);
+        boolean samaBerat = !Collections.disjoint(beratA, beratB);
+
+        System.out.println("Ada tinggi sama antara Tim A dan Tim B? " + samaTinggi);
+        if (samaTinggi) {
+            List<Integer> samaTinggiList = new ArrayList<>();
+            for (Integer t : tinggiA) {
+                if (tinggiB.contains(t) && !samaTinggiList.contains(t)) {
+                    samaTinggiList.add(t);
+                }
+            }
+            System.out.println("Tinggi yang sama: " + samaTinggiList);
+        }
+        System.out.println();
+
+        System.out.println("Ada berat sama antara Tim A dan Tim B? " + samaBerat);
+        if (samaBerat) {
+            List<Integer> samaBeratList = new ArrayList<>();
+            for (Integer b : beratA) {
+                if (beratB.contains(b) && !samaBeratList.contains(b)) {
+                    samaBeratList.add(b);
+                }
+            }
+            System.out.println("Berat yang sama: " + samaBeratList);
+        }
+    }
+}
